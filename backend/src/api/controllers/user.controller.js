@@ -182,6 +182,10 @@ const userController = {
   },
 
   //? reset password
+  resetPassword: async (req, res) => {
+    try {
+    } catch (error) {}
+  },
 };
 
 module.exports = userController;
