@@ -167,8 +167,6 @@ const userController = {
             console.log(error);
             return responseHandler.error(res, "Error sending email");
           }
-
-          console.log("Email sent: " + info.response);
           return responseHandler.success(res, info.response);
         });
       } else {
@@ -182,6 +180,7 @@ const userController = {
   //? reset password
   resetPassword: async (req, res) => {
     try {
+      const { otp, email } = req.body;
     } catch (error) {}
   },
 };
