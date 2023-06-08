@@ -4,7 +4,6 @@ const dotenv = require("dotenv");
 
 const connectToMongoose = require("./api/database/connection.database.js");
 const routes = require("./api/routes/index.js");
-
 const app = express();
 
 dotenv.config();

@@ -59,11 +59,9 @@ const userController = {
 
         const secret_key = process.env.TOKEN_SECRET_KEY;
         const { _id } = checkUser._doc;
-        console.log(_id);
         const access_token = jwt.sign({ _id }, secret_key);
-
         return responseHandler.success(res, "Đăng nhập thành công", {
-          user: checkUser,
+          user: checkUser._doc,
           access_token,
         });
       }

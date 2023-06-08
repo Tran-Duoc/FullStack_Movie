@@ -24,7 +24,7 @@ const favorite = new Schema(
       type: String,
       required: true,
     },
-    mediaRate: {
+    mediaVoteAverage: {
       type: Number,
       required: true,
     },

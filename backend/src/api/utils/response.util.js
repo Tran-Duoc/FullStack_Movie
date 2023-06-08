@@ -16,6 +16,12 @@ const success = (res, message, data) => {
   });
 };
 
+const created = (res, message, data) => {
+  return responseWithData(res, 201, {
+    data: data,
+  });
+};
+
 const badRequest = (res, message) => {
   return responseWithData(res, 400, message, {
     status: 400,
@@ -34,4 +40,5 @@ module.exports = {
   badRequest,
   success,
   unauthorize,
+  created,
 };
