@@ -67,6 +67,19 @@ const tvController = {
       return responseHandler.error(res, error.message);
     }
   },
+  getCreditTV: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { data } = await tvApi.getCreditTV(id);
+      if (data) {
+        return responseHandler.success(res, "Lấy thành công", data);
+      } else {
+        return responseHandler.success(res, "Lấy không thành công", data);
+      }
+    } catch (error) {
+      return responseHandler.error(res, error.message);
+    }
+  },
 };
 
 module.exports = tvController;

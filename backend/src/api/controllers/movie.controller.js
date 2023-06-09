@@ -1,6 +1,5 @@
 const responseHandler = require("../utils/response.util");
 const { movieApi } = require("../services/tmdb/tmbd.api");
-const { default: axios } = require("axios");
 
 const movieController = {
   getMovies: async (req, res) => {
@@ -74,6 +73,19 @@ const movieController = {
       }
     } catch (error) {
       responseHandler.error(res, error.message);
+    }
+  },
+  getCreditsMovie: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { data } = await movieApi.getCreditMovie(id);
+      if (data) {
+        return responseHandler.success(res, "Lấy thành công", data);
+      } else {
+        return responseHandler.success(res, "Lấy không thành công", data);
+      }
+    } catch (error) {
+      return responseHandler.error(res, error.message);
     }
   },
 };

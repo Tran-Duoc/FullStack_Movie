@@ -1,4 +1,4 @@
-const { mediaType, mediaCategory } = require("../../../configs/tmdb.config");
+const { mediaType } = require("../../../configs/tmdb.config");
 
 // explain: mediaType là "movie"
 const movie = {
@@ -13,6 +13,9 @@ const movie = {
   },
   video_endpoint: (idMovie) => {
     return `${mediaType.movie}/${idMovie}/videos`;
+  },
+  credit_movie_endpoint: (movie_id) => {
+    return `${mediaType.movie}/${movie_id}/credits`;
   },
 };
 
@@ -29,11 +32,24 @@ const tv = {
   },
   tv_video_endpoint: (id_tv) => {
     return `${mediaType.tv}/${id_tv}/videos`;
-    return;
+  },
+  credit_tv_endpoint: (movie_id) => {
+    return `${mediaType.tv}/${movie_id}/credits`;
+  },
+};
+
+// explain: diễn viên
+const person = {
+  detailPerson: (id_person) => {
+    return `person/${id_person}`;
+  },
+  mediaPerson: (id_person) => {
+    return `person/${id_person}/combined_credits`;
   },
 };
 
 module.exports = {
   movie,
   tv,
+  person,
 };
