@@ -1,5 +1,6 @@
 const responseHandler = require("../utils/response.util");
 const { movieApi } = require("../services/tmdb/tmbd.api");
+const { default: axios } = require("axios");
 
 const movieController = {
   getMovies: async (req, res) => {

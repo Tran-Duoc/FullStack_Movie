@@ -7,9 +7,9 @@ const reviewRouter = require("./review.route");
 
 const router = express.Router();
 
-router.use("/user", userRoute);
 router.use("/movie", movieRoute);
 router.use("/tv", tvRouter);
+router.use("/user", userRoute);
 router.use("/favorite", favoriteRouter);
 router.use("/review", reviewRouter);
 

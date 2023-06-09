@@ -6,10 +6,11 @@ const {
   deleteUser,
   getUser,
   forgotPassword,
+  resetPassword,
+  checkingPassword,
 } = require("../controllers/user.controller");
 const upload = require("../../configs/multer.config");
 const { auth } = require("../middlewares/auth.middleware");
-
 const router = express.Router();
 
 router.post("/register", registerUser);
@@ -17,7 +18,8 @@ router.post("/login", loginUser);
 router.patch("/update/:id", upload.single("imageAvatar"), updateInfoUser);
 router.delete("/delete/:id", auth, deleteUser);
 router.get("/info", auth, getUser);
-
 router.post("/forgot-password", forgotPassword);
+router.post("/checking-password", checkingPassword);
+router.patch("/reset-password", resetPassword);
 
 module.exports = router;

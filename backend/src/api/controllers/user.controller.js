@@ -11,8 +11,10 @@ const {
 const {
   generateOTP,
   remoteOTP,
+  compareOTP,
   storgaeTemp,
 } = require("../../configs/otp.config");
+const userModel = require("../models/user.model");
 
 const userController = {
   //! register user
@@ -37,7 +39,6 @@ const userController = {
       return responseHandler.error(res, error.message);
     }
   },
-
   //? login user
   loginUser: async (req, res) => {
     try {
@@ -69,7 +70,6 @@ const userController = {
       return responseHandler.error(res, error.message);
     }
   },
-
   //* update info user
   updateInfoUser: async (req, res) => {
     try {
@@ -96,7 +96,6 @@ const userController = {
       return responseHandler.error(res, error.message);
     }
   },
-
   //! delete user
   deleteUser: async (req, res) => {
     try {
@@ -115,7 +114,6 @@ const userController = {
       return responseHandler.error(res, error.message);
     }
   },
-
   //? get info user
   getUser: async (req, res) => {
     try {
@@ -135,7 +133,6 @@ const userController = {
       return responseHandler.error(res, error.message);
     }
   },
-
   //? forgot password
   forgotPassword: async (req, res) => {
     try {
@@ -176,12 +173,45 @@ const userController = {
       return responseHandler.error(res, error.message);
     }
   },
-
-  //? reset password
+  //? checking password
+  checkingPassword: async (req, res) => {
+    try {
+      //explain:  email được đăng ký lúc đầu
+      const { otp, email } = req.body;
+      const isValidOTP = await compareOTP(email, otp);
+      if (isValidOTP) {
+        return responseHandler.success(res, "OTP hợp lệ,", email);
+      } else {
+        return responseHandler.badRequest(res, "OTP không hợp lệ");
+      }
+    } catch (error) {
+      return responseHandler.error(res, error.message);
+    }
+  },
   resetPassword: async (req, res) => {
     try {
-      const { otp, email } = req.body;
-    } catch (error) {}
+      const { email, newPassword } = req.body;
+      const new_password = await hashPassword(newPassword);
+      const resetPassword = await userModel.findOneAndUpdate(
+        { email: email },
+        {
+          password: new_password,
+        },
+        {
+          new: true,
+        }
+      );
+      if (resetPassword) {
+        return responseHandler.success(res, "Cập nhật mật khẩu thành công");
+      } else {
+        return responseHandler.badRequest(
+          res,
+          "Cập nhật mật khẩu không thành công"
+        );
+      }
+    } catch (error) {
+      return responseHandler.error(res, error.message);
+    }
   },
 };
 
