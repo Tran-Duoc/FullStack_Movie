@@ -1,7 +1,11 @@
+import AuthLayout from "./layouts/AuthLayout/AuthLayout";
+import Register from "./pages/Register/Register";
+import useRouteElement from "./hooks/useRouteElement";
+
 function App() {
-  return (
-    <h1 className="text-3xl text-red-500 font-bold underline">Hello world!</h1>
-  );
+  const routeElements = useRouteElement();
+
+  return <div>{routeElements}</div>;
 }
 
 export default App;
