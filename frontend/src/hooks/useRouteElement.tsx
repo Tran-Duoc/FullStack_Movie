@@ -7,6 +7,9 @@ import RejectedRoute from "../route/RejectedRoute/RejectedRoute";
 import AuthLayout from "../layouts/AuthLayout/AuthLayout";
 import Register from "../pages/Register/Register";
 import Login from "../pages/Login/Login";
+import Profile from "../pages/Profile/Profile";
+import Tv from "../pages/TV/Tv";
+import MoviePage from "../pages/MoviePage/MoviePage";
 
 const useRouteElement = () => {
   const routeElement = useRoutes([
@@ -19,15 +22,32 @@ const useRouteElement = () => {
         </MainLayout>
       ),
     },
+
     {
       path: path.home,
       element: <ProjectedRoute />,
       children: [
         {
           path: path.profile,
-          element: <Home />,
+          element: <Profile />,
         },
       ],
+    },
+    {
+      path: path.tv,
+      element: (
+        <MainLayout>
+          <Tv />
+        </MainLayout>
+      ),
+    },
+    {
+      path: path.movie,
+      element: (
+        <MainLayout>
+          <MoviePage />
+        </MainLayout>
+      ),
     },
     {
       path: path.home,
