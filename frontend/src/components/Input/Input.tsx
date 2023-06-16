@@ -41,7 +41,7 @@ const Input = ({
       <input
         type={toggleEye ? "text" : type}
         id={name}
-        className="w-full rounded-xl border border-gray-200  p-3  outline-none focus:border-gray-700  focus:bg-slate-50 focus:shadow-sm  bg-slate-50"
+        className="w-full rounded-xl border border-gray-200  p-3  outline-none focus:border-gray-700  focus:bg-slate-50 focus:shadow-sm  bg-slate-50 text-slate-950 font-normal"
         placeholder={placeholder}
         autoComplete="off"
         {...registerResult}

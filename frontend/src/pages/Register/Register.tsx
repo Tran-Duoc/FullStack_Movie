@@ -4,22 +4,55 @@ import Title from "../../components/Title/Title";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../validations/yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import path from "../../constants/path";
 import { AuthType } from "../../types/auth.type";
-
-type RegisterType = AuthType;
+import { useMutation } from "@tanstack/react-query";
+import { registerUser } from "../../configs/api/api.config";
+import { omit } from "lodash";
+import { isAxiosUnprocessableEntityError } from "../../utils/util";
+import { ResponseApi } from "../../types/response.type";
 
 const Register = () => {
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
+    setError,
     formState: { errors },
-  } = useForm<RegisterType>({
+  } = useForm<AuthType>({
     resolver: yupResolver(schema),
   });
+
+  const { mutate } = useMutation({
+    mutationFn: (body: Omit<AuthType, "confirm_password">) => {
+      return registerUser(body);
+    },
+  });
+
   const handleSubmitRegisterUser = handleSubmit((data) => {
-    console.log(data);
+    const body = omit(data, ["confirm_password"]);
+    mutate(body, {
+      onSuccess: (data) => {
+        console.log(data);
+        navigate("/login");
+      },
+      onError: (error) => {
+        if (
+          isAxiosUnprocessableEntityError<ResponseApi<Pick<AuthType, "name">>>(
+            error
+          )
+        ) {
+          const FormError = error.response?.data;
+          if (FormError) {
+            setError("email", {
+              message: String(FormError),
+              type: "Server",
+            });
+          }
+        }
+      },
+    });
   });
   return (
     <form
@@ -32,12 +65,12 @@ const Register = () => {
           className="bg-clip-text text-transparent bg-[conic-gradient(at_top_left,_var(--tw-gradient-stops))] from-blue-700 via-blue-800 to-gray-900 text-2xl font-semibold md:text-3xl pointer-events-none "
         />
         <Input
-          name="user_name"
+          name="name"
           type="text"
           placeholder="What your name?"
           className="mt-3 w-full "
           register={register}
-          errorMessage={errors.user_name?.message}
+          errorMessage={errors.name?.message}
         />
         <Input
           name="age"

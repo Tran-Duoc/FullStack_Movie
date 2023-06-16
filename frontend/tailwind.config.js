@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+// eslint-disable-next-line no-undef
+module.exports = {
   darkMode: "class",
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -9,5 +10,6 @@ export default {
       },
     },
   },
-  plugins: [],
+  // eslint-disable-next-line no-undef
+  plugins: [require("daisyui")],
 };

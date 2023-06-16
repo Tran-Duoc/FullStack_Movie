@@ -86,7 +86,7 @@ export const schema = yup.object({
     .min(5, "đô dài từ 5 - 150 ký tự")
     .max(150, "độ dài từ 5 - 150 ký tự")
     .oneOf([yup.ref("password")], "nhập lại mật khẩu"),
-  user_name: yup
+  name: yup
     .string()
     .required("user name is required")
     .min(5, "đô dài từ 5 - 150 ký tự")

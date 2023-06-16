@@ -23,7 +23,7 @@ const userController = {
       const { name, email, password, age } = req.body;
       const checkUser = await user.findOne({ email });
       if (checkUser)
-        return responseHandler.badRequest(res, "Người dùng đã tồn tại!");
+        return responseHandler.badRequest(res, "Email đã tồn tại!");
       const hash = await hashPassword(password);
       const newUser = new user({
         name: name,
