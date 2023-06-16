@@ -1,7 +1,7 @@
 import Logo from "../Logo/Logo";
 import { Link, useNavigate } from "react-router-dom";
 import path from "../../constants/path";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import ToggleDarkMode from "../ToggleDarkMode/ToggleDarkMode";
 import MenuBar from "../Icon/MenuBar/MenuBar";
 import Button from "../Button/Button";
@@ -12,6 +12,7 @@ import Film from "../Icon/Film/Film";
 import TV from "../Icon/TV/TV";
 import Heart from "../Icon/Heart/Heart";
 import User from "../Icon/User/User";
+import { AppContext } from "../../context/app.context";
 
 const navList = [
   {
@@ -111,11 +112,12 @@ const MediaScreenNav = ({
 const Header = () => {
   const [isActive, setIsActive] = useState<string>(path.home);
   const [isOpenNav, setIsOpenNav] = useState<boolean>(false);
+  const { profile } = useContext(AppContext);
   const navigate = useNavigate();
   const isActivePath = (path: string) => isActive === path;
 
   return (
-    <header className="flex items-end justify-between py-5 bg-transparent">
+    <header className=" flex items-end justify-between py-5 bg-transparent">
       <Logo />
       <ul className="flex text-xl lg:text-2xl font-bold gap-5  text-slate-800 dark:text-slate-50">
         {navList.map((item, index) => {
@@ -148,6 +150,7 @@ const Header = () => {
         />
       </div>
       <MediaScreenNav isOpenNav={isOpenNav} setIsOpenNav={setIsOpenNav} />
+      <>{profile?.name && <div>{String(profile?.name)}</div>}</>
     </header>
   );
 };

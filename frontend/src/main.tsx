@@ -1,12 +1,12 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { store } from "./redux/store.ts";
-import { Provider } from "react-redux";
+// import { store } from "./redux/store.ts";
+// import { Provider } from "react-redux";
+import { AppProvider } from "./context/app.context.tsx";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -16,14 +16,12 @@ const queryClient = new QueryClient({
 });
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
+  <AppProvider>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <Provider store={store}>
-          <App />
-        </Provider>
+        <App />
         <ReactQueryDevtools initialIsOpen={false} />
       </BrowserRouter>
     </QueryClientProvider>
-  </React.StrictMode>
+  </AppProvider>
 );

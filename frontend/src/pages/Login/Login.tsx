@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import Title from "../../components/Title/Title";
@@ -7,20 +7,43 @@ import { useForm } from "react-hook-form";
 import { AuthType } from "../../types/auth.type";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../validations/yup";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "../../configs/api/api.config";
+import { omit } from "lodash";
+import { useContext } from "react";
+import { AppContext } from "../../context/app.context";
 
 type LoginType = Pick<AuthType, "email" | "password" | "confirm_password">;
 const loginSchema = schema.pick(["email", "password", "confirm_password"]);
 const Login = () => {
+  const { setIsAuthenticated, setProfile } = useContext(AppContext);
+  const navigate = useNavigate();
+
   const {
     register,
     formState: { errors },
     handleSubmit,
+    setError,
   } = useForm<LoginType>({
     resolver: yupResolver(loginSchema),
   });
 
+  const { mutate } = useMutation({
+    mutationFn: (body: Pick<AuthType, "email" | "password">) => {
+      return loginUser(body);
+    },
+  });
+
   const handleSubmitLoginUser = handleSubmit((data) => {
-    console.log(data);
+    const body = omit(data, "confirm_password");
+    mutate(body, {
+      onSuccess: (data) => {
+        const { name } = data.data.data.user;
+        setIsAuthenticated(true);
+        setProfile({ name });
+        navigate(path.home);
+      },
+    });
   });
 
   return (
@@ -61,7 +84,7 @@ const Login = () => {
         />
         <Button
           className="w-full bg-slate-800 text-center py-4 rounded-lg text-white font-medium text-2xl  cursor-pointer duration-200 hover:bg-slate-900"
-          type="button"
+          type="submit"
           content="Login"
         />
         <div className="">

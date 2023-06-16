@@ -1,12 +1,9 @@
 import { Outlet, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
 import path from "../../constants/path";
+import { useContext } from "react";
+import { AppContext } from "../../context/app.context";
 const RejectedRoute = () => {
-  const isAuthenticated = useSelector(
-    (state: RootState) => state.auth.isAuthenticated
-  );
-  console.log(isAuthenticated);
+  const { isAuthenticated } = useContext(AppContext);
   return !isAuthenticated ? <Outlet /> : <Navigate to={path.home} />;
 };
 
