@@ -43,13 +43,16 @@ class Http {
       }
     );
     this.instance.interceptors.response.use((response) => {
+      console.log(response);
       const { url } = response.config;
-      if (url === "login" || url === "register") {
+      if (url === "user/login" || url === "user/register") {
         const data = response.data as AuthResponse<AuthLogin>;
         this.access_token = data.data.access_token;
         saveAccessTokenToLS(this.access_token);
-        setProfileToLS(data.data.user);
-      } else if (url === "logout") {
+        const { user } = data.data;
+
+        setProfileToLS(user);
+      } else if (url === "user/logout") {
         this.access_token = "";
         ClearLS();
       }

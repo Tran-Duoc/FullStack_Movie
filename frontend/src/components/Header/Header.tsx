@@ -13,6 +13,7 @@ import TV from "../Icon/TV/TV";
 import Heart from "../Icon/Heart/Heart";
 import User from "../Icon/User/User";
 import { AppContext } from "../../context/app.context";
+import Logout from "../Icon/Logout/Logout";
 
 const navList = [
   {
@@ -35,8 +36,10 @@ const navList = [
 const MediaScreenNav = ({
   isOpenNav,
   setIsOpenNav,
+  profile,
 }: {
   isOpenNav: boolean;
+  profile: string;
   setIsOpenNav: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const handleToggleMenu = (
@@ -104,6 +107,14 @@ const MediaScreenNav = ({
             </MenuItem>
           </ul>
         </div>
+        <div className="absolute bottom-0 left-0 right-0 py-5 px-4 bg-slate-800">
+          <div className="flex items-end justify-between px-5">
+            <span className="text-xl font-semibold dark:text-slate-50 text-slate-900 ">
+              {profile}
+            </span>
+            <Logout className="dark:text-slate-50 text-slate-900 font-semibold" />
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -112,7 +123,8 @@ const MediaScreenNav = ({
 const Header = () => {
   const [isActive, setIsActive] = useState<string>(path.home);
   const [isOpenNav, setIsOpenNav] = useState<boolean>(false);
-  const { profile } = useContext(AppContext);
+  const { profile, isAuthenticated } = useContext(AppContext);
+
   const navigate = useNavigate();
   const isActivePath = (path: string) => isActive === path;
 
@@ -143,14 +155,39 @@ const Header = () => {
           className="block md:hidden"
           onClick={() => setIsOpenNav(!isOpenNav)}
         />
-        <Button
-          content="Login"
-          className="text-white font-medium text-2xl bg-slate-800 dark:text-slate-800 dark:bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-sky-400 to-blue-800 px-4 py-1 rounded-xl hidden md:block hover:bg-slate-600"
-          onClick={() => navigate(path.login)}
+        <MediaScreenNav
+          isOpenNav={isOpenNav}
+          setIsOpenNav={setIsOpenNav}
+          profile={profile?.name as string}
         />
+        {isAuthenticated ? (
+          <div className="dropdown dropdown-hover dropdown-end">
+            <label
+              tabIndex={0}
+              className="btn bg-transparent border-0 text-slate-900 dark:text-slate-50   hover:bg-transparent"
+            >
+              {profile?.name}
+            </label>
+            <ul
+              tabIndex={1}
+              className="dropdown-content   p-3 shadow bg- rounded-box w-52 bg-slate-100 dark:bg-slate-700  text-slate-900 dark:text-slate-50"
+            >
+              <li className="dark:hover:bg-slate-900  hover:bg-slate-300 dark:text-slate-50  text-slate-900 p-2">
+                <span className=" ">1</span>
+              </li>
+              <li className="dark:hover:bg-slate-900 hover:bg-slate-300 dark:text-slate-50  text-slate-900 p-2">
+                <span className=" ">2</span>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <Button
+            content="Login"
+            className="text-white font-medium text-2xl bg-slate-800 dark:text-slate-800 dark:bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-sky-400 to-blue-800 px-4 py-1 rounded-xl hidden md:block hover:bg-slate-600"
+            onClick={() => navigate(path.login)}
+          />
+        )}
       </div>
-      <MediaScreenNav isOpenNav={isOpenNav} setIsOpenNav={setIsOpenNav} />
-      <>{profile?.name && <div>{String(profile?.name)}</div>}</>
     </header>
   );
 };
