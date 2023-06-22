@@ -1,5 +1,5 @@
 import Logo from "../Logo/Logo";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import path from "../../constants/path";
 import { useContext, useState } from "react";
 import ToggleDarkMode from "../ToggleDarkMode/ToggleDarkMode";
@@ -67,22 +67,22 @@ const MediaScreenNav = ({
             className="text-xl font-bold text-slate-900 dark:text-cyan-600"
           />
           <ul className="w-full flex flex-col gap-1">
-            <MenuItem>
+            <MenuItem pathName={path.home}>
               <House className=" dark:text-slate-50 text-slate-900" />
               <span className="dark:text-slate-50 text-slate-900  text-xl font-semibold ">
                 Home
               </span>
             </MenuItem>
-            <MenuItem>
+            <MenuItem pathName={path.movie}>
               <Film className=" dark:text-slate-50 text-slate-900" />
               <span className="dark:text-slate-50 text-slate-900  text-xl font-semibold ">
                 Movies
               </span>
             </MenuItem>
-            <MenuItem>
+            <MenuItem pathName={path.tv}>
               <TV className=" dark:text-slate-50 text-slate-900" />
               <span className="dark:text-slate-50 text-slate-900  text-xl font-semibold ">
-                Movies
+                TV Series
               </span>
             </MenuItem>
           </ul>
@@ -93,13 +93,13 @@ const MediaScreenNav = ({
             className="text-xl font-bold text-slate-900 dark:text-cyan-600"
           />
           <ul className="w-full flex flex-col gap-1">
-            <MenuItem>
+            <MenuItem pathName={path.profile}>
               <Heart className=" dark:text-slate-50 text-slate-900" />
               <span className="dark:text-slate-50 text-slate-900  text-xl font-semibold ">
                 Favorites
               </span>
             </MenuItem>
-            <MenuItem>
+            <MenuItem pathName={path.profile}>
               <User className=" dark:text-slate-50 text-slate-900" />
               <span className="dark:text-slate-50 text-slate-900  text-xl font-semibold ">
                 Profile
@@ -107,7 +107,7 @@ const MediaScreenNav = ({
             </MenuItem>
           </ul>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 py-5 px-4 bg-slate-800">
+        <div className="absolute bottom-0 left-0 right-0 py-5 px-4 dark:bg-slate-800 bg-slate-400">
           <div className="flex items-end justify-between px-5">
             <span className="text-xl font-semibold dark:text-slate-50 text-slate-900 ">
               {profile}
@@ -121,15 +121,15 @@ const MediaScreenNav = ({
 };
 
 const Header = () => {
-  const [isActive, setIsActive] = useState<string>(path.home);
+  const [, setIsActive] = useState<string>(path.home);
   const [isOpenNav, setIsOpenNav] = useState<boolean>(false);
   const { profile, isAuthenticated } = useContext(AppContext);
-
   const navigate = useNavigate();
-  const isActivePath = (path: string) => isActive === path;
+  const isActivePath = (path: string) => location.pathname === path;
+  const location = useLocation();
 
   return (
-    <header className=" flex items-end justify-between py-5 bg-transparent">
+    <header className="flex items-end justify-between py-5 bg-transparent">
       <Logo />
       <ul className="flex text-xl lg:text-2xl font-bold gap-5  text-slate-800 dark:text-slate-50">
         {navList.map((item, index) => {
@@ -161,7 +161,7 @@ const Header = () => {
           profile={profile?.name as string}
         />
         {isAuthenticated ? (
-          <div className="dropdown dropdown-hover dropdown-end">
+          <div className="dropdown dropdown-hover dropdown-end hidden md:block">
             <label
               tabIndex={0}
               className="btn bg-transparent border-0 text-slate-900 dark:text-slate-50   hover:bg-transparent"
@@ -173,11 +173,20 @@ const Header = () => {
               className="dropdown-content   p-3 shadow bg- rounded-box w-52 bg-slate-100 dark:bg-slate-700  text-slate-900 dark:text-slate-50"
             >
               <li className="dark:hover:bg-slate-900  hover:bg-slate-300 dark:text-slate-50  text-slate-900 p-2">
-                <span className=" ">1</span>
+                <Link
+                  to={path.profile}
+                  className="flex items-center justify-start gap-2"
+                >
+                  <User />
+                  <p>Your profile</p>
+                </Link>
               </li>
-              <li className="dark:hover:bg-slate-900 hover:bg-slate-300 dark:text-slate-50  text-slate-900 p-2">
-                <span className=" ">2</span>
-              </li>
+              <div className="mt-5 flex  items-center gap-2 dark:hover:bg-slate-900  hover:bg-slate-300 dark:text-slate-50  text-slate-900 p-2">
+                <Logout />
+                <p className="text-slate-900 dark:text-slate-50  text-xl ">
+                  Logout
+                </p>
+              </div>
             </ul>
           </div>
         ) : (

@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import path from "../../constants/path";
 import { AuthType } from "../../types/auth.type";
 import { useMutation } from "@tanstack/react-query";
-import { registerUser } from "../../configs/api/api.config";
+import { registerUser } from "../../configs/api/auth.config";
 import { omit } from "lodash";
 import { isAxiosUnprocessableEntityError } from "../../utils/util";
 import { ResponseApi } from "../../types/response.type";

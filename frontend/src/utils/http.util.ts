@@ -43,7 +43,6 @@ class Http {
       }
     );
     this.instance.interceptors.response.use((response) => {
-      console.log(response);
       const { url } = response.config;
       if (url === "user/login" || url === "user/register") {
         const data = response.data as AuthResponse<AuthLogin>;

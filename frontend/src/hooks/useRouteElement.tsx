@@ -1,15 +1,18 @@
+/* eslint-disable react-refresh/only-export-components */
+import React, { Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import path from "../constants/path";
 import MainLayout from "../layouts/MainLayout/MainLayout";
-import Home from "../pages/Home/Home";
 import ProjectedRoute from "../route/ProjectedRoute/ProjectedRoute";
 import RejectedRoute from "../route/RejectedRoute/RejectedRoute";
 import AuthLayout from "../layouts/AuthLayout/AuthLayout";
-import Register from "../pages/Register/Register";
-import Login from "../pages/Login/Login";
-import Profile from "../pages/Profile/Profile";
-import Tv from "../pages/TV/Tv";
-import MoviePage from "../pages/MoviePage/MoviePage";
+import Home from "../pages/Home/Home";
+
+const Register = React.lazy(() => import("../pages/Register/Register"));
+const Tv = React.lazy(() => import("../pages/TV/Tv"));
+const MoviePage = React.lazy(() => import("../pages/MoviePage/MoviePage"));
+const Profile = React.lazy(() => import("../pages/Profile/Profile"));
+const Login = React.lazy(() => import("../pages/Login/Login"));
 
 const useRouteElement = () => {
   const routeElement = useRoutes([
@@ -29,24 +32,32 @@ const useRouteElement = () => {
       children: [
         {
           path: path.profile,
-          element: <Profile />,
+          element: (
+            <Suspense fallback="Loading">
+              <Profile />
+            </Suspense>
+          ),
         },
       ],
     },
     {
       path: path.tv,
       element: (
-        <MainLayout>
-          <Tv />
-        </MainLayout>
+        <Suspense fallback="Loading">
+          <MainLayout>
+            <Tv />
+          </MainLayout>
+        </Suspense>
       ),
     },
     {
       path: path.movie,
       element: (
-        <MainLayout>
-          <MoviePage />
-        </MainLayout>
+        <Suspense fallback="Loading">
+          <MainLayout>
+            <MoviePage />
+          </MainLayout>
+        </Suspense>
       ),
     },
     {
@@ -56,17 +67,21 @@ const useRouteElement = () => {
         {
           path: path.register,
           element: (
-            <AuthLayout>
-              <Register />
-            </AuthLayout>
+            <Suspense fallback="Loading">
+              <AuthLayout>
+                <Register />
+              </AuthLayout>
+            </Suspense>
           ),
         },
         {
           path: path.login,
           element: (
-            <AuthLayout>
-              <Login />
-            </AuthLayout>
+            <Suspense fallback="Loading">
+              <AuthLayout>
+                <Login />
+              </AuthLayout>
+            </Suspense>
           ),
         },
       ],

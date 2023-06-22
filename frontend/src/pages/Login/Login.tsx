@@ -8,7 +8,7 @@ import { AuthType } from "../../types/auth.type";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "../../validations/yup";
 import { useMutation } from "@tanstack/react-query";
-import { loginUser } from "../../configs/api/api.config";
+import { loginUser } from "../../configs/api/auth.config";
 import { omit } from "lodash";
 import { useContext } from "react";
 import { AppContext } from "../../context/app.context";
