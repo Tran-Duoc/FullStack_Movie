@@ -88,5 +88,20 @@ const movieController = {
       return responseHandler.error(res, error.message);
     }
   },
+  getPoster: async (req, res) => {
+    try {
+      const { data } = await movieApi.getMovies("top_rated");
+      if (data) {
+        const poster = [...data.results][0];
+        return responseHandler.success(res, "Lấy thành công", {
+          data: poster,
+        });
+      } else {
+        return responseHandler.badRequest(res, "Lấy không thành công");
+      }
+    } catch (error) {
+      return responseHandler.error(res, error.message);
+    }
+  },
 };
 module.exports = movieController;
