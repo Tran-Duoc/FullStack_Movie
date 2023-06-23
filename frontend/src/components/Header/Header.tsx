@@ -129,9 +129,9 @@ const Header = () => {
   const location = useLocation();
 
   return (
-    <header className="flex items-end justify-between py-5 bg-transparent">
+    <header className="flex items-end justify-between py-5   ">
       <Logo />
-      <ul className="flex text-xl lg:text-2xl font-bold gap-5  text-slate-800 dark:text-slate-50">
+      <ul className="flex text-xl lg:text-2xl font-bold gap-5  text-slate-950 dark:text-slate-50 ">
         {navList.map((item, index) => {
           return (
             <li
@@ -164,7 +164,7 @@ const Header = () => {
           <div className="dropdown dropdown-hover dropdown-end hidden md:block">
             <label
               tabIndex={0}
-              className="btn bg-transparent border-0 text-slate-900 dark:text-slate-50   hover:bg-transparent"
+              className="btn bg-transparent border-0 text-slate-200 dark:text-slate-50   hover:bg-transparent"
             >
               {profile?.name}
             </label>
