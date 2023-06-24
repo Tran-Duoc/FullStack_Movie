@@ -10,7 +10,7 @@ interface Props {
 
 const MovieCart: React.FC<Props> = ({ name, poster }) => {
   return (
-    <section className="w-full  relative hover:z-10 hover:scale-125 duration-200 overflow-hidden group ">
+    <section className="w-full  relative hover:z-10 md:hover:scale-125 hover:scale-100 duration-200 overflow-hidden group ">
       <img src={generateImagePath(poster)} alt="" className="w-full h-full" />
       <div className="absolute  duration-200  py-2 bg-slate-900/50 left-0 right-0 -bottom-20 group-hover:bottom-0">
         <div className="flex flex-col gap-1 px-3">

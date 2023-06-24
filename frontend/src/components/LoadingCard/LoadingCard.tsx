@@ -1,6 +1,6 @@
 const LoadingCard = () => {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+    <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mt-5">
       {Array(4)
         .fill(0)
         .map(() => {

@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getPoster } from "../../configs/api/movie.config";
 import Hero from "../../components/Hero/Hero";
 import Container from "../../components/Container/Container";
+import { mediaCategory } from "../../constants/movies";
 
 const Home = () => {
   const { data: MovieData } = useQuery({
@@ -12,11 +13,18 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       <Hero data={MovieData?.data.data.data} />
+
       <div>
-        <Container />
-        <Container />
-        <Container />
-        <Container />
+        <Container title="Top rated" mediaCategory={mediaCategory.top_rated} />
+        <Container
+          title="Popular Movie"
+          mediaCategory={mediaCategory.popular}
+        />
+        {/* <Container
+          title="Now playing"
+          mediaCategory={mediaCategory.now_playing}
+        />
+        <Container title="Upcoming" mediaCategory={mediaCategory.upcoming} /> */}
       </div>
     </div>
   );

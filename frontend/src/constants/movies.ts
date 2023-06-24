@@ -1,6 +1,6 @@
 export const mediaCategory = {
   popular: "popular",
   top_rated: "top_rated",
-  trending: "trending",
+  upcoming: "upcoming",
   now_playing: "now_playing",
 };
