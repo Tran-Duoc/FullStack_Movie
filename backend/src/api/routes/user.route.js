@@ -8,6 +8,7 @@ const {
   forgotPassword,
   resetPassword,
   checkingPassword,
+  logOutUser,
 } = require("../controllers/user.controller");
 const upload = require("../../configs/multer.config");
 const { auth } = require("../middlewares/auth.middleware");
@@ -21,5 +22,7 @@ router.get("/info", auth, getUser);
 router.post("/forgot-password", forgotPassword);
 router.post("/checking-password", checkingPassword);
 router.patch("/reset-password", resetPassword);
+
+router.post("/logout", logOutUser);
 
 module.exports = router;

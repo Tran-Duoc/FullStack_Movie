@@ -213,6 +213,14 @@ const userController = {
       return responseHandler.error(res, error.message);
     }
   },
+
+  logOutUser: async (req, res) => {
+    try {
+      return responseHandler.success(res, "logout to success", {
+        data: "Logout user",
+      });
+    } catch (error) {}
+  },
 };
 
 module.exports = userController;
