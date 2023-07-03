@@ -1,17 +1,17 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-type Props = {
-  children: React.ReactNode;
+import { useNavigate } from "react-router-dom";
+interface Props extends React.LiHTMLAttributes<HTMLLIElement> {
+  children?: React.ReactNode;
   pathName: string;
-};
+}
 
-const MenuItem: React.FC<Props> = ({ children, pathName }) => {
+const MenuItem: React.FC<Props> = ({ children, pathName, ...rest }) => {
   const navigate = useNavigate();
   return (
     <li
       onClick={() => navigate(pathName)}
-      className="flex w-full hover:bg-blue-400 duration-300 p-3 gap-3 rounded-xl items-center  "
+      {...rest}
+      className="flex items-center justify-start gap-5 dark:hover:bg-blue-700 py-3 pl-4 duration-300 rounded-lg hover:bg-cyan-700"
     >
       {children}
     </li>

@@ -20,11 +20,6 @@ const Home = () => {
           title="Popular Movie"
           mediaCategory={mediaCategory.popular}
         />
-        {/* <Container
-          title="Now playing"
-          mediaCategory={mediaCategory.now_playing}
-        />
-        <Container title="Upcoming" mediaCategory={mediaCategory.upcoming} /> */}
       </div>
     </div>
   );

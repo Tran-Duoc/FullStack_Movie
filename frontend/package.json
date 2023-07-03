@@ -15,6 +15,8 @@
     "@tanstack/react-query": "^4.29.12",
     "@tanstack/react-query-devtools": "^4.29.12",
     "@types/lodash": "^4.14.195",
+    "antd": "^5.6.4",
+    "antd-img-crop": "^4.12.2",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
     "framer-motion": "^10.12.16",

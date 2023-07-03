@@ -1,3 +1,4 @@
+import { AxiosResponse } from "axios";
 import http from "../../utils/http.util";
 
 interface FormData {
@@ -35,4 +36,8 @@ export const registerUser = (body: FormData) => {
 
 export const loginUser = (body: Pick<FormData, "email" | "password">) => {
   return http.post<AuthResponse<AuthLogin>>("user/login", body);
+};
+
+export const logOut = () => {
+  return http.post<AxiosResponse>("user/logout");
 };

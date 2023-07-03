@@ -1,12 +1,14 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { Suspense } from "react";
-import { useRoutes } from "react-router-dom";
+import { Outlet, useRoutes } from "react-router-dom";
 import path from "../constants/path";
 import MainLayout from "../layouts/MainLayout/MainLayout";
 import ProjectedRoute from "../route/ProjectedRoute/ProjectedRoute";
 import RejectedRoute from "../route/RejectedRoute/RejectedRoute";
 import AuthLayout from "../layouts/AuthLayout/AuthLayout";
 import Home from "../pages/Home/Home";
+import ProfileLayout from "../layouts/ProfileLayout/ProfileLayout";
+import InForUser from "../pages/Profile/InForUser";
 
 const Register = React.lazy(() => import("../pages/Register/Register"));
 const Tv = React.lazy(() => import("../pages/TV/Tv"));
@@ -32,11 +34,30 @@ const useRouteElement = () => {
       children: [
         {
           path: path.profile,
-          element: (
-            <Suspense fallback="Loading">
-              <Profile />
-            </Suspense>
-          ),
+          element: <Outlet />,
+          children: [
+            {
+              path: "",
+              index: true,
+              element: (
+                <Suspense fallback="Loading">
+                  <ProfileLayout>
+                    <Profile />
+                  </ProfileLayout>
+                </Suspense>
+              ),
+            },
+            {
+              path: "yourself",
+              element: (
+                <Suspense fallback="Loading">
+                  <ProfileLayout>
+                    <InForUser />
+                  </ProfileLayout>
+                </Suspense>
+              ),
+            },
+          ],
         },
       ],
     },

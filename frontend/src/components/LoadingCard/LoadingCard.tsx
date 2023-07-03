@@ -3,9 +3,10 @@ const LoadingCard = () => {
     <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mt-5">
       {Array(4)
         .fill(0)
-        .map(() => {
+        .map((_, idx) => {
           return (
             <div
+              key={idx}
               role="status"
               className="w-full flex items-center justify-center h-56 max-w-sm bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700"
             >

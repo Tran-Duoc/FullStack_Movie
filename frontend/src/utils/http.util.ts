@@ -44,13 +44,14 @@ class Http {
     );
     this.instance.interceptors.response.use((response) => {
       const { url } = response.config;
-      if (url === "user/login" || url === "user/register") {
+      if (url === "user/login") {
         const data = response.data as AuthResponse<AuthLogin>;
         this.access_token = data.data.access_token;
         saveAccessTokenToLS(this.access_token);
         const { user } = data.data;
-
-        setProfileToLS(user);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password, ...other } = user;
+        setProfileToLS(other);
       } else if (url === "user/logout") {
         this.access_token = "";
         ClearLS();

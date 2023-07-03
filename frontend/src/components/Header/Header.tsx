@@ -14,6 +14,8 @@ import Heart from "../Icon/Heart/Heart";
 import User from "../Icon/User/User";
 import { AppContext } from "../../context/app.context";
 import Logout from "../Icon/Logout/Logout";
+import { useMutation } from "@tanstack/react-query";
+import { logOut } from "../../configs/api/auth.config";
 
 const navList = [
   {
@@ -87,7 +89,7 @@ const MediaScreenNav = ({
             </MenuItem>
           </ul>
         </div>
-        <div className="mt-5">
+        {/* <div className="mt-5">
           <Title
             content="Personal"
             className="text-xl font-bold text-slate-900 dark:text-cyan-600"
@@ -114,7 +116,7 @@ const MediaScreenNav = ({
             </span>
             <Logout className="dark:text-slate-50 text-slate-900 font-semibold" />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
@@ -123,10 +125,25 @@ const MediaScreenNav = ({
 const Header = () => {
   const [, setIsActive] = useState<string>(path.home);
   const [isOpenNav, setIsOpenNav] = useState<boolean>(false);
-  const { profile, isAuthenticated } = useContext(AppContext);
+  const { profile, isAuthenticated, setIsAuthenticated, setProfile } =
+    useContext(AppContext);
   const navigate = useNavigate();
   const isActivePath = (path: string) => location.pathname === path;
   const location = useLocation();
+
+  const logoutMutation = useMutation({
+    mutationFn: () => {
+      return logOut();
+    },
+    onSuccess: () => {
+      setIsAuthenticated(false);
+      setProfile(null);
+    },
+  });
+
+  const handleLogOut = () => {
+    return logoutMutation.mutate();
+  };
 
   return (
     <header className="flex items-end justify-between py-5   ">
@@ -181,7 +198,10 @@ const Header = () => {
                   <p>Your profile</p>
                 </Link>
               </li>
-              <div className="mt-5 flex  items-center gap-2 dark:hover:bg-slate-900  hover:bg-slate-300 dark:text-slate-50  text-slate-900 p-2">
+              <div
+                className="mt-5 flex  items-center gap-2 dark:hover:bg-slate-900  hover:bg-slate-300 dark:text-slate-50  text-slate-900 p-2"
+                onClick={handleLogOut}
+              >
                 <Logout />
                 <p className="text-slate-900 dark:text-slate-50  text-xl ">
                   Logout

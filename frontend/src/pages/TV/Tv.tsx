@@ -1,5 +1,5 @@
 const Tv = () => {
-  return <div>Tv</div>;
+  return <div className="min-h-screen"></div>;
 };
 
 export default Tv;

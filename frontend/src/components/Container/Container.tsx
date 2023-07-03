@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import Title from "../Title/Title";
 import { MovieQueryParams, getMovies } from "../../configs/api/movie.config";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import MovieCart from "../MovieCard/MovieCart";
 import Button from "../Button/Button";
 import LoadingCard from "../LoadingCard/LoadingCard";
@@ -40,10 +40,12 @@ const Container: React.FC<Props> = ({ title, mediaCategory }) => {
             <div className=" mt-5 grid grid-cols-1 lg:grid-cols-4 gap-2  md:grid-cols-3 ">
               {data?.data.data.results.map((item) => {
                 return (
-                  <MovieCart
-                    name={item.original_title}
-                    poster={item.backdrop_path}
-                  />
+                  <div key={item.id}>
+                    <MovieCart
+                      name={item.original_title}
+                      poster={item.backdrop_path}
+                    />
+                  </div>
                 );
               })}
             </div>
