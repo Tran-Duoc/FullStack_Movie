@@ -48,7 +48,7 @@ const useRouteElement = () => {
               ),
             },
             {
-              path: "yourself",
+              path: "update",
               element: (
                 <Suspense fallback="Loading">
                   <ProfileLayout>

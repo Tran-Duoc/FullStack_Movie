@@ -23,7 +23,6 @@ const Login = () => {
     register,
     formState: { errors },
     handleSubmit,
-    setError,
   } = useForm<LoginType>({
     resolver: yupResolver(loginSchema),
   });

@@ -90,7 +90,7 @@ const movieController = {
   },
   getPoster: async (req, res) => {
     try {
-      const { data } = await movieApi.getMovies("top_rated");
+      const { data } = await movieApi.getMovies("popular");
       if (data) {
         const poster = [...data.results][0];
         return responseHandler.success(res, "Lấy thành công", {

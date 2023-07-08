@@ -93,7 +93,7 @@ const MediaScreenNav = ({
           <Title
             content="Personal"
             className="text-xl font-bold text-slate-900 dark:text-cyan-600"
-          />
+          /> 
           <ul className="w-full flex flex-col gap-1">
             <MenuItem pathName={path.profile}>
               <Heart className=" dark:text-slate-50 text-slate-900" />

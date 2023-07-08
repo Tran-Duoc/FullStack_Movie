@@ -28,6 +28,7 @@ export const AppProvider = ({ children }: TypeAppProvider) => {
   const [profile, setProfile] = useState<Pick<User, "name"> | null>(
     initialState.profile
   );
+
   return (
     <AppContext.Provider
       value={{

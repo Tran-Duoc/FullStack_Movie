@@ -1,11 +1,15 @@
-import AuthLayout from "./layouts/AuthLayout/AuthLayout";
-import Register from "./pages/Register/Register";
 import useRouteElement from "./hooks/useRouteElement";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   const routeElements = useRouteElement();
 
-  return <div>{routeElements}</div>;
+  return (
+    <div>
+      {routeElements}
+      <ToastContainer autoClose={2000} />
+    </div>
+  );
 }
 
 export default App;

@@ -75,27 +75,56 @@ const userController = {
     try {
       const { id } = req.params;
       const { name, email, age } = req.body;
-      const { filename } = req.file;
       const checkUser = await user.findOne({ _id: id });
-      if (!checkUser)
+      if (!checkUser) {
         return responseHandler.badRequest(res, "Nguời dùng không hợp lệ");
+      } else {
+        const updateInfo = {
+          ...checkUser._doc,
+          name: name,
+          email: email,
+          age: age,
+        };
 
-      const updateInfo = {
-        ...checkUser._doc,
-        name: name,
-        email: email,
-        age: age,
-        imageAvatar: filename,
-      };
+        await user.findByIdAndUpdate({ _id: id }, updateInfo, { new: true });
 
-      await user.findByIdAndUpdate({ _id: id }, updateInfo, {
-        new: true,
-      });
-      return responseHandler.success(res, "Cập nhật thành công", updateInfo);
+        return responseHandler.success(res, "Cập nhật thành công", updateInfo);
+      }
     } catch (error) {
       return responseHandler.error(res, error.message);
     }
   },
+
+  updateAvatarUser: async (req, res) => {
+    try {
+      try {
+        const { id } = req.params;
+        const { filename } = req.file;
+        const checkUser = await user.findOne({ _id: id });
+        if (!checkUser)
+          return responseHandler.badRequest(res, "Nguời dùng không hợp lệ");
+
+        const updateInfo = {
+          ...checkUser._doc,
+          imageAvatar: filename,
+        };
+
+        await user.findByIdAndUpdate({ _id: id }, updateInfo, {
+          new: true,
+        });
+        return responseHandler.success(
+          res,
+          "Cập nhật ảnh đại diện thành công",
+          updateInfo
+        );
+      } catch (error) {
+        return responseHandler.error(res, error.message);
+      }
+    } catch (error) {
+      return responseHandler.error(res, error.message);
+    }
+  },
+
   //! delete user
   deleteUser: async (req, res) => {
     try {

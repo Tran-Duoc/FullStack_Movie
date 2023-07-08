@@ -1,3 +1,5 @@
+import House from "../../components/Icon/House/House";
+import Info from "../../components/Icon/InfoUser/Info";
 import User from "../../components/Icon/User/User";
 import Logo from "../../components/Logo/Logo";
 import MenuItem from "../../components/MenuItem/MenuItem";
@@ -15,10 +17,18 @@ const ProfileLayout: React.FC<Props> = ({ children }) => {
           <div className="mt-8">
             <Logo />
           </div>
-          <div>
+          <div className="flex flex-col gap-2">
+            <MenuItem pathName={path.home}>
+              <House />
+              Quay về trang chủ
+            </MenuItem>
             <MenuItem pathName={path.profile}>
               <User />
               Thông tin cá nhân
+            </MenuItem>
+            <MenuItem pathName={`${path.profile}/${path.changeInfo}`}>
+              <Info />
+              Cập nhật thông tin
             </MenuItem>
           </div>
         </div>

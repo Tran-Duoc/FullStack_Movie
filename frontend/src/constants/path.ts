@@ -5,5 +5,6 @@ const path = {
   movie: "/movie",
   tv: "/tv",
   profile: "/profile",
+  changeInfo: "update",
 };
 export default path;
