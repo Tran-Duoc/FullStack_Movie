@@ -3,7 +3,7 @@ import http from "../../utils/http.util";
 
 export interface MovieQueryParams {
   mediaCategory: string;
-  page: number;
+  pageParam: number;
 }
 
 interface MovieResponse<TData> {

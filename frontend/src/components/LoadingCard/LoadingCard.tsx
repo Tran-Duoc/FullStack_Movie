@@ -8,7 +8,7 @@ const LoadingCard = () => {
             <div
               key={idx}
               role="status"
-              className="w-full flex items-center justify-center h-56 max-w-sm bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700"
+              className="w-full flex items-center justify-center h-56  bg-gray-300 rounded-lg animate-pulse dark:bg-gray-700"
             >
               <svg
                 className="w-12 h-12 text-gray-200 dark:text-gray-600"

@@ -17,7 +17,7 @@ const Container: React.FC<Props> = ({ title, mediaCategory }) => {
   const navigate = useNavigate();
 
   const [dataQuery] = useState<MovieQueryParams>({
-    page: 1,
+    pageParam: 1,
     mediaCategory: mediaCategory,
   });
 

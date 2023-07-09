@@ -13,6 +13,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import LoadingSpin from "../../components/LoadingSpin/LoadingSpin";
+import {
+  getProfileFromLS,
+  setProfileToLS,
+} from "../../utils/LocalStorage.util";
 
 interface FormType {
   name: string;
@@ -23,7 +27,7 @@ interface FormType {
 
 const InForUser = () => {
   const { handleSubmit, register, setValue } = useForm<FormType>();
-
+  const profileUer = getProfileFromLS();
   const { data: infoUser, isLoading } = useQuery({
     queryKey: ["infoUser"],
     queryFn: () => {
@@ -33,6 +37,7 @@ const InForUser = () => {
       setValue("name", data.data.data.name);
       setValue("email", data.data.data.email);
       setValue("age", data.data.data.age);
+      setProfileToLS({ ...profileUer, name: data.data.data.name });
     },
   });
 
